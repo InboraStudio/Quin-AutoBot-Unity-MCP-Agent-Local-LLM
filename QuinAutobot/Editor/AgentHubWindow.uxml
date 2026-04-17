@@ -1,0 +1,195 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="root" class="root">
+
+        <!-- ═══ MAIN VIEW ═══ -->
+        <ui:VisualElement name="main-view" class="root">
+
+            <!-- HEADER -->
+            <ui:VisualElement name="header" class="header">
+                <ui:VisualElement name="header-left" class="header-left">
+                    <ui:VisualElement name="status-dot" class="status-dot status-dot--unknown" />
+                    <ui:Label name="header-title" class="header-title" text="QUIN AUTOBOT" />
+                </ui:VisualElement>
+                <ui:VisualElement name="header-right" class="header-right">
+                    <ui:Button name="btn-telemetry-toggle" class="icon-btn" tooltip="Toggle self-healing loop">
+                        <ui:Label class="icon-label" text="⚡" />
+                    </ui:Button>
+                    <ui:Button name="btn-clear-session" class="icon-btn" tooltip="Clear conversation">
+                        <ui:Label class="icon-label" text="⊘" />
+                    </ui:Button>
+                    <ui:Button name="btn-settings" class="icon-btn" tooltip="Settings">
+                        <ui:Label class="icon-label" text="⚙" />
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- PERF BAR -->
+            <ui:VisualElement name="perf-bar" class="perf-bar">
+                <ui:Label name="lbl-cpu" class="perf-chip" text="CPU 0%" />
+                <ui:Label name="lbl-mem" class="perf-chip" text="RAM 0 MB" />
+                <ui:Label name="lbl-fps" class="perf-chip" text="FPS --" />
+                <ui:VisualElement class="perf-spacer" />
+                <ui:Label name="lbl-tokens" class="perf-chip perf-chip--dim" text="Tokens: 0" />
+            </ui:VisualElement>
+
+            <!-- CHAT SCROLL -->
+            <ui:ScrollView name="chat-scroll" class="chat-scroll"
+                           vertical-scroller-visibility="Auto"
+                           horizontal-scroller-visibility="Hidden">
+
+                <ui:VisualElement name="welcome-state" class="welcome-state">
+                    <ui:Label class="welcome-icon" text="◈" />
+                    <ui:Label class="welcome-title" text="What can I build for you?" />
+                    <ui:Label class="welcome-subtitle" text="Live access to your Unity scene, project files, and console." />
+                    <ui:VisualElement name="suggestion-chips" class="suggestion-chips">
+                        <ui:Button name="chip-spawn"   class="suggestion-chip" text="Spawn an object" />
+                        <ui:Button name="chip-fix"     class="suggestion-chip" text="Fix console errors" />
+                        <ui:Button name="chip-script"  class="suggestion-chip" text="Write a script" />
+                        <ui:Button name="chip-explain" class="suggestion-chip" text="Explain this scene" />
+                    </ui:VisualElement>
+                </ui:VisualElement>
+
+                <ui:VisualElement name="message-list" class="message-list" />
+
+            </ui:ScrollView>
+
+            <!-- THINKING -->
+            <ui:VisualElement name="thinking-bar" class="thinking-bar thinking-bar--hidden">
+                <ui:VisualElement class="thinking-dots">
+                    <ui:VisualElement class="dot" />
+                    <ui:VisualElement class="dot" />
+                    <ui:VisualElement class="dot" />
+                </ui:VisualElement>
+                <ui:Label name="lbl-thinking" class="thinking-label" text="Thinking…" />
+            </ui:VisualElement>
+
+            <!-- INPUT CARD -->
+            <ui:VisualElement name="input-card" class="input-card">
+
+                <!-- Image preview strip -->
+                <ui:VisualElement name="image-preview" class="image-preview image-preview--hidden">
+                    <ui:Label class="image-preview-icon" text="🖼" />
+                    <ui:Label name="lbl-image-name" class="image-preview-name" text="" />
+                    <ui:Button name="btn-remove-image" class="image-remove-btn" text="×" tooltip="Remove image" />
+                </ui:VisualElement>
+
+                <ui:TextField name="input-field" class="input-field" multiline="true"
+                              placeholder-text="Describe your intent to the agent…" />
+
+                <ui:VisualElement name="toolbar" class="toolbar">
+                    <ui:VisualElement class="toolbar-left">
+                        <ui:Button name="btn-attach" class="toolbar-btn toolbar-btn--square" tooltip="Actions">
+                            <ui:Label class="toolbar-btn-label" text="+" />
+                        </ui:Button>
+                        <ui:Button name="btn-mode" class="toolbar-btn toolbar-btn--pill" tooltip="Toggle thinking mode">
+                            <ui:Label class="mode-icon" text="⚡" />
+                            <ui:Label name="lbl-mode" class="mode-label" text="Auto" />
+                        </ui:Button>
+                        <ui:Button name="btn-auto-allow" class="toolbar-btn toolbar-btn--pill" tooltip="Auto-allow all commands (no approval prompts)">
+                            <ui:Label class="auto-allow-icon" text="▷" />
+                            <ui:Label class="auto-allow-label" text="Auto" />
+                        </ui:Button>
+                        <ui:Button name="btn-image" class="toolbar-btn toolbar-btn--square" tooltip="Attach image">
+                            <ui:Label class="toolbar-btn-label" text="⊞" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="toolbar-right">
+                        <ui:Button name="btn-model" class="toolbar-btn toolbar-btn--pill-dim" tooltip="LM Studio model">
+                            <ui:Label name="lbl-model" class="model-label" text="No Model" />
+                            <ui:Label class="mode-chevron" text="∨" />
+                        </ui:Button>
+                        <ui:Button name="btn-probe" class="toolbar-btn toolbar-btn--square-dim" tooltip="Test connection">
+                            <ui:Label class="toolbar-btn-label" text="◎" />
+                        </ui:Button>
+                        <ui:Button name="btn-send" class="toolbar-btn toolbar-btn--send" tooltip="Send (Ctrl+Enter)">
+                            <ui:Label class="toolbar-btn-label" text="↑" />
+                        </ui:Button>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+
+            <!-- FOOTER -->
+            <ui:Label class="footer-caption"
+                      text="Agent can make mistakes. Always review generated code before entering Play Mode." />
+
+            <!-- ATTACH POPUP — placed last so it renders above input card -->
+            <ui:VisualElement name="attach-popup" class="attach-popup attach-popup--hidden">
+                <ui:Button name="attach-spawn" class="attach-item">
+                    <ui:Label class="attach-icon" text="⬡" />
+                    <ui:Label class="attach-label" text="Spawn Primitive or Prefab" />
+                </ui:Button>
+                <ui:Button name="attach-script" class="attach-item">
+                    <ui:Label class="attach-icon" text="{}" />
+                    <ui:Label class="attach-label" text="Inject a Script" />
+                </ui:Button>
+                <ui:Button name="attach-scene" class="attach-item">
+                    <ui:Label class="attach-icon" text="◉" />
+                    <ui:Label class="attach-label" text="Describe Current Scene" />
+                </ui:Button>
+                <ui:Button name="attach-capture" class="attach-item">
+                    <ui:Label class="attach-icon" text="⊡" />
+                    <ui:Label class="attach-label" text="Screenshot Scene View" />
+                </ui:Button>
+                <ui:Button name="attach-docs" class="attach-item">
+                    <ui:Label class="attach-icon" text="≡" />
+                    <ui:Label class="attach-label" text="Open Documentation" />
+                </ui:Button>
+            </ui:VisualElement>
+
+        </ui:VisualElement>
+
+        <!-- ═══ SETTINGS PANEL ═══ -->
+        <ui:VisualElement name="settings-panel" class="settings-panel settings-panel--hidden">
+            <ui:VisualElement class="settings-header">
+                <ui:Button name="settings-back-btn" class="settings-back-btn" tooltip="Back">
+                    <ui:Label class="settings-back-icon" text="←" />
+                </ui:Button>
+                <ui:Label class="settings-title" text="Settings" />
+            </ui:VisualElement>
+            <ui:ScrollView name="settings-scroll" class="settings-scroll"
+                           vertical-scroller-visibility="Auto"
+                           horizontal-scroller-visibility="Hidden">
+                <ui:VisualElement class="settings-body">
+                    <ui:Label class="settings-section-label settings-section-label--first" text="CONNECTION" />
+                    <ui:VisualElement class="settings-row">
+                        <ui:Label class="settings-row-label" text="LM Studio URL / API Endpoint" />
+                        <ui:TextField name="settings-url" class="settings-text-input" value="http://localhost:1234" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="settings-row">
+                        <ui:Label class="settings-row-label" text="API Key (For Gemini / OpenAI proxies)" />
+                        <ui:TextField name="settings-apikey" class="settings-text-input" value="" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="settings-row">
+                        <ui:Label class="settings-row-label" text="Model Override (blank = auto-detect)" />
+                        <ui:TextField name="settings-model" class="settings-text-input" value="" />
+                    </ui:VisualElement>
+                    <ui:Label class="settings-section-label" text="AGENT BEHAVIOUR" />
+                    <ui:VisualElement class="settings-row">
+                        <ui:Label class="settings-row-label" text="Temperature (0 = precise, 1 = creative)" />
+                        <ui:TextField name="settings-temp" class="settings-text-input" value="0.3" />
+                    </ui:VisualElement>
+                    <ui:VisualElement class="settings-row">
+                        <ui:Label class="settings-row-label" text="Max Conversation History (messages)" />
+                        <ui:TextField name="settings-history" class="settings-text-input" value="40" />
+                    </ui:VisualElement>
+                    <ui:Label class="settings-section-label" text="TELEMETRY" />
+                    <ui:VisualElement class="settings-toggle-row">
+                        <ui:VisualElement>
+                            <ui:Label class="settings-toggle-label" text="Self-Healing Loop" />
+                            <ui:Label class="settings-toggle-sub" text="Auto-query LLM on console errors" />
+                        </ui:VisualElement>
+                        <ui:Toggle name="settings-telemetry" value="true" />
+                    </ui:VisualElement>
+                    <ui:Button name="settings-save" class="settings-save-btn">
+                        <ui:Label class="settings-save-label" text="Save Settings" />
+                    </ui:Button>
+                    <ui:Button name="settings-reset" class="settings-danger-btn">
+                        <ui:Label class="settings-danger-label" text="Reset to Defaults" />
+                    </ui:Button>
+                    <ui:Label class="settings-version-label" text="Quin Autobot v2.0  —  Unity 6" />
+                </ui:VisualElement>
+            </ui:ScrollView>
+        </ui:VisualElement>
+
+    </ui:VisualElement>
+</ui:UXML>
