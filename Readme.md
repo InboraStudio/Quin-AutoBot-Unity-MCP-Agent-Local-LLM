@@ -2,6 +2,9 @@
 
 Quin Autobot is an autonomous agent integrated directly into the Unity Editor, designed to assist with project development, scene manipulation, and codebase management through the Model Context Protocol (MCP).
 
+<img width="1917" height="1108" alt="image" src="https://github.com/user-attachments/assets/52bc65bb-a810-4a7c-9ae7-ad535884e00a" />
+
+
 ## Core Architecture and Techniques
 
 ### Model Context Protocol (MCP) Integration
